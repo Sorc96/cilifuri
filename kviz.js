@@ -279,6 +279,8 @@ const SOUNDS = [
 ]
 
 let game
+// Number of recipes in one part. The player chooses it on the start screen.
+let partSize = 25
 // Plays the sounds after a correct answer.
 const sound = new Audio()
 // Set while a clip plays. Calling it ends the clip at once.
@@ -294,18 +296,61 @@ function show(screenId) {
   for (const screen of document.querySelectorAll("body > section")) {
     screen.hidden = screen.id !== screenId
   }
+  // Only the question screen needs this button. The score screen has its own large one.
+  document.querySelector("#home").hidden = screenId !== "question-screen"
 }
 
+// Ends the game at once: stops the sound and shows the start screen.
+function goToStart() {
+  game = null
+  sound.pause()
+  show("start-screen")
+}
+
+function leaveGame() {
+  if (confirm("Ukončit kvíz a vrátit se na začátek?")) {
+    goToStart()
+  }
+}
+
+function choosePartSize(size) {
+  partSize = size
+  for (const button of document.querySelectorAll("#part-size button")) {
+    button.setAttribute("aria-pressed", String(Number(button.dataset.size) === size))
+  }
+}
+
+// One game can have more parts. Each part takes the next recipes from the same shuffled list,
+// so that no recipe shows two times in one game.
 function startGame() {
   game = {
     recipes: shuffle(RECIPES),
     videos: shuffle(VIDEOS),
     sounds: [],
-    correct: 0,
-    index: 0
+    index: 0,
+    part: 0,
+    totalCorrect: 0
   }
-  prepareRecipe()
+  startPart()
   playVideo(INTRO_VIDEO, showQuestion)
+}
+
+function startPart() {
+  game.part += 1
+  game.partStart = game.index
+  game.partEnd = Math.min(game.index + partSize, game.recipes.length)
+  game.partCorrect = 0
+  document.querySelector("#question-screen").classList.toggle("many-choices", partSize > 25)
+  prepareRecipe()
+}
+
+// Plays the clip before the recipe at game.index.
+function playClip() {
+  if (game.videos.length > 0) {
+    playVideo(game.videos[(game.index - 1) % game.videos.length], showQuestion)
+  } else {
+    showQuestion()
+  }
 }
 
 function playVideo(path, onDone) {
@@ -339,12 +384,18 @@ function prepareRecipe() {
   const picture = document.querySelector("#recipe-picture")
   picture.src = `assets/images/${recipe.picture}`
   picture.decode().catch(() => { })
-  document.querySelector("#progress").textContent = `Recept ${game.index + 1} z ${game.recipes.length}`
 
-  // All names stay in the same place for the whole game. Names of recipes already shown are disabled.
-  const usedNames = new Set(game.recipes.slice(0, game.index).map(recipe => recipe.name))
-  const allNames = RECIPES.map(recipe => recipe.name).sort((a, b) => a.localeCompare(b, "cs"))
-  document.querySelector("#choices").replaceChildren(...allNames.map(name => {
+  const partRecipes = game.recipes.slice(game.partStart, game.partEnd)
+  const progress = `recept ${game.index - game.partStart + 1} z ${partRecipes.length}`
+  // The part number is useful only when the game can have more than one part.
+  document.querySelector("#progress").textContent = partSize < game.recipes.length
+    ? `${game.part}. část – ${progress}`
+    : progress[0].toUpperCase() + progress.slice(1)
+
+  // The names of the part stay in the same place for the whole part. Names of recipes already shown are disabled.
+  const usedNames = new Set(game.recipes.slice(game.partStart, game.index).map(recipe => recipe.name))
+  const partNames = partRecipes.map(recipe => recipe.name).sort((a, b) => a.localeCompare(b, "cs"))
+  document.querySelector("#choices").replaceChildren(...partNames.map(name => {
     const button = document.createElement("button")
     button.textContent = name
     button.onclick = () => answer(name)
@@ -363,7 +414,8 @@ function showQuestion() {
 function answer(name) {
   const correctName = game.recipes[game.index].name
   if (name === correctName) {
-    game.correct += 1
+    game.partCorrect += 1
+    game.totalCorrect += 1
     playSound()
   }
 
@@ -407,27 +459,48 @@ function nextStep() {
   sound.pause()
   game.index += 1
 
+  // The outro plays only after the last part, when no recipes are left.
   if (game.index >= game.recipes.length) {
     playVideo(OUTRO_VIDEO, showScore)
     return
   }
+  if (game.index >= game.partEnd) {
+    showScore()
+    return
+  }
 
   prepareRecipe()
-  if (game.videos.length > 0) {
-    playVideo(game.videos[(game.index - 1) % game.videos.length], showQuestion)
-  } else {
-    showQuestion()
-  }
+  playClip()
 }
 
 function showScore() {
+  const left = game.recipes.length - game.index
+  document.querySelector("#score-title").textContent = left > 0 ? `Konec ${game.part}. části` : "Konec kvízu"
   document.querySelector("#score").textContent =
-    `Správně ${game.correct} z ${game.recipes.length}`
+    `Správně ${game.partCorrect} z ${game.partEnd - game.partStart}`
+  const total = document.querySelector("#total")
+  total.hidden = game.part === 1
+  total.textContent = `Celkem ${game.totalCorrect} z ${game.index}`
+  const continueButton = document.querySelector("#continue")
+  continueButton.hidden = left === 0
   show("score-screen")
+  ;(left > 0 ? continueButton : document.querySelector("#back")).focus()
 }
 
+function continueGame() {
+  // A second click (for example a double click) must not start a part two times.
+  if (document.querySelector("#score-screen").hidden) return
+  startPart()
+  playClip()
+}
+
+for (const button of document.querySelectorAll("#part-size button")) {
+  button.onclick = () => choosePartSize(Number(button.dataset.size))
+}
 document.querySelector("#start").onclick = startGame
-document.querySelector("#again").onclick = startGame
+document.querySelector("#continue").onclick = continueGame
+document.querySelector("#back").onclick = goToStart
+document.querySelector("#home").onclick = leaveGame
 document.querySelector("#next").onclick = nextStep
 // Escape skips the clip. Players are not likely to press it by accident.
 document.addEventListener("keydown", event => {

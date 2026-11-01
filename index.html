@@ -14,6 +14,12 @@
     <h1>Čilifuri kvíz</h1>
     <video class="decoration" src="assets/video/horici_panev.mp4" autoplay muted loop playsinline
       aria-hidden="true"></video>
+    <div id="part-size" role="group" aria-label="Počet receptů">
+      Počet receptů:
+      <button data-size="10" aria-pressed="false">10</button>
+      <button data-size="25" aria-pressed="true">25</button>
+      <button data-size="50" aria-pressed="false">50</button>
+    </div>
     <button id="start" class="face-button"><img src="assets/images/sapik.webp" alt="">Začít</button>
   </section>
 
@@ -22,23 +28,27 @@
   </section>
 
   <section id="question-screen" class="screen" hidden>
-    <div>
-      <p id="progress"></p>
-      <img id="recipe-picture" alt="Obrázek receptu">
-    </div>
-    <div>
+    <p id="progress"></p>
+    <img id="recipe-picture" alt="Obrázek receptu">
+    <div id="answers">
       <div id="choices"></div>
       <button id="next" hidden>Další</button>
     </div>
   </section>
 
   <section id="score-screen" class="screen" hidden>
-    <h1>Konec kvízu</h1>
+    <h1 id="score-title"></h1>
     <video class="decoration" src="assets/video/sapikovice.mp4" autoplay muted loop playsinline
       aria-hidden="true"></video>
     <p id="score"></p>
-    <button id="again" class="face-button"><img src="assets/images/babica.webp" alt="">Zkusit znovu</button>
+    <p id="total" hidden></p>
+    <div class="score-buttons">
+      <button id="continue" class="face-button"><img src="assets/images/sapik.webp" alt="">Další část</button>
+      <button id="back" class="face-button"><img src="assets/images/babica.webp" alt="">Zpět na začátek</button>
+    </div>
   </section>
+
+  <button id="home" hidden>Zpět na začátek</button>
 </body>
 
 </html>

@@ -29,11 +29,21 @@ h1 { margin-top: 6vh; }
    wide as the window height allows (minus room for the progress text and the Další button). */
 #question-screen {
   display: grid;
-  grid-template-columns: min(calc(100vh - 190px), 42%) 1fr;
-  gap: 32px;
+  grid-template-columns: min(calc(100vh - 190px), 50%) 1fr;
+  column-gap: 32px;
   align-items: start;
   max-width: 1800px;
 }
+
+/* The progress text has its own row, so that the names are centered against the picture only. */
+#progress { grid-column: 1; grid-row: 1; }
+#recipe-picture { grid-column: 1; grid-row: 2; }
+#answers { grid-column: 2; grid-row: 2; align-self: center; position: relative; }
+
+/* With more than 25 names, the names need more room, so the picture gets smaller. */
+#question-screen.many-choices { grid-template-columns: min(calc(100vh - 190px), 42%) 1fr; }
+/* 50 names are taller than the picture, so they start at the top and use the row of the progress text too. */
+#question-screen.many-choices #answers { grid-row: 1 / span 2; align-self: start; }
 
 #recipe-picture {
   width: 100%;
@@ -68,15 +78,34 @@ button.wrong { background: #c62828; border-color: #c62828; color: #fff; }
 /* A recipe that was already shown. It stays in its place, so that the other names do not move. */
 button.used { background: transparent; border-color: #e3d9cf; color: #b5aaa0; }
 
-#next { margin-top: 24px; }
+/* The Další button is below the names, outside the centered area, so that the names
+   do not move when the button appears after an answer. */
+#next { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 16px; }
 
 #score { margin: 0 0 24px; font-size: 2rem; font-weight: bold; }
+#total { margin: -16px 0 24px; font-size: 1.3rem; }
 
-/* Leave room for the title, the score and the large button (391 px together, plus a small margin). */
-#score-screen .decoration { max-height: min(55vh, calc(94vh - 400px)); }
+/* The two large buttons must fit next to each other, so this screen is wider than the others. */
+#score-screen { max-width: 1200px; }
+.score-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 24px; }
 
-/* Leave room for the title and the large button (370 px together, plus a small margin). */
-#start-screen .decoration { max-height: min(55vh, calc(94vh - 380px)); }
+#part-size {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 20px;
+  font-size: 1.3rem;
+}
+
+#part-size button { min-width: 72px; padding: 8px 16px; font-size: 1.3rem; }
+#part-size button[aria-pressed="true"] { background: #c0392b; color: #fff; }
+
+/* Leave room for the title, the score, the total and the large buttons (about 430 px together, plus a small margin). */
+#score-screen .decoration { max-height: min(55vh, calc(94vh - 440px)); }
+
+/* Leave room for the title, the recipe count and the large button (about 440 px together, plus a small margin). */
+#start-screen .decoration { max-height: min(55vh, calc(94vh - 450px)); }
 
 .face-button {
   display: inline-flex;
@@ -91,6 +120,17 @@ button.used { background: transparent; border-color: #e3d9cf; color: #b5aaa0; }
 .face-button img {
   height: 160px;
   border-radius: 6px;
+}
+
+/* In the top left corner of the question screen. */
+#home {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 6px 12px;
+  font-size: 0.95rem;
+  opacity: 0.85;
 }
 
 #video-screen {
