@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Čilifuri kvíz</title>
+  <link rel="stylesheet" href="kviz.css">
+  <script src="kviz.js" defer></script>
+</head>
+
+<body>
+  <section id="start-screen" class="screen">
+    <h1>Čilifuri kvíz</h1>
+    <video class="decoration" src="assets/video/horici_panev.mp4" autoplay muted loop playsinline
+      aria-hidden="true"></video>
+    <button id="start" class="face-button"><img src="assets/images/sapik.webp" alt="">Začít</button>
+  </section>
+
+  <section id="video-screen" hidden>
+    <video id="video" playsinline></video>
+  </section>
+
+  <section id="question-screen" class="screen" hidden>
+    <div>
+      <p id="progress"></p>
+      <img id="recipe-picture" alt="Obrázek receptu">
+    </div>
+    <div>
+      <div id="choices"></div>
+      <button id="next" hidden>Další</button>
+    </div>
+  </section>
+
+  <section id="score-screen" class="screen" hidden>
+    <h1>Konec kvízu</h1>
+    <video class="decoration" src="assets/video/sapikovice.mp4" autoplay muted loop playsinline
+      aria-hidden="true"></video>
+    <p id="score"></p>
+    <button id="again" class="face-button"><img src="assets/images/babica.webp" alt="">Zkusit znovu</button>
+  </section>
+</body>
+
+</html>

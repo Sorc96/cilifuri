@@ -1,0 +1,102 @@
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #fdf8f2;
+  color: #222;
+}
+
+.screen {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+h1 { margin-top: 6vh; }
+
+.decoration {
+  display: block;
+  /* As large as the screen allows, but low enough that the button below stays visible. */
+  max-width: 100%;
+  max-height: 55vh;
+  margin: 0 auto 24px;
+  border-radius: 12px;
+}
+
+/* Picture on the left, names on the right. The pictures are square, so the picture column is as
+   wide as the window height allows (minus room for the progress text and the Další button). */
+#question-screen {
+  display: grid;
+  grid-template-columns: min(calc(100vh - 190px), 42%) 1fr;
+  gap: 32px;
+  align-items: start;
+  max-width: 1800px;
+}
+
+#recipe-picture {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* All rows have the same height, so that a long name does not look different from a short one. */
+#choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 6px;
+}
+
+#choices button { padding: 5px 8px; font-size: 0.95rem; text-wrap: balance; }
+
+button {
+  padding: 14px 18px;
+  font: inherit;
+  font-size: 1.1rem;
+  border: 2px solid #c0392b;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { background: #fbe9e7; }
+button:disabled { cursor: default; }
+button.correct { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+button.wrong { background: #c62828; border-color: #c62828; color: #fff; }
+/* A recipe that was already shown. It stays in its place, so that the other names do not move. */
+button.used { background: transparent; border-color: #e3d9cf; color: #b5aaa0; }
+
+#next { margin-top: 24px; }
+
+#score { margin: 0 0 24px; font-size: 2rem; font-weight: bold; }
+
+/* Leave room for the title, the score and the large button (391 px together, plus a small margin). */
+#score-screen .decoration { max-height: min(55vh, calc(94vh - 400px)); }
+
+/* Leave room for the title and the large button (370 px together, plus a small margin). */
+#start-screen .decoration { max-height: min(55vh, calc(94vh - 380px)); }
+
+.face-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 48px 12px 12px;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+/* The whole picture with no crop. The width follows the picture's own shape. */
+.face-button img {
+  height: 160px;
+  border-radius: 6px;
+}
+
+#video-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+}
+
+#video { width: 100%; height: 100%; object-fit: contain; }
