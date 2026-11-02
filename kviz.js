@@ -296,8 +296,8 @@ function show(screenId) {
   for (const screen of document.querySelectorAll("body > section")) {
     screen.hidden = screen.id !== screenId
   }
-  // Only the question screen needs this button. The score screen has its own large one.
-  document.querySelector("#home").hidden = screenId !== "question-screen"
+  // On a small screen the player scrolls. Each new screen must start at the top.
+  window.scrollTo(0, 0)
 }
 
 // Ends the game at once: stops the sound and shows the start screen.
@@ -502,6 +502,8 @@ document.querySelector("#continue").onclick = continueGame
 document.querySelector("#back").onclick = goToStart
 document.querySelector("#home").onclick = leaveGame
 document.querySelector("#next").onclick = nextStep
+// On a touch screen there is no Escape key, so the video screen has a button for it.
+document.querySelector("#skip").onclick = () => skipVideo && skipVideo()
 // Escape skips the clip. Players are not likely to press it by accident.
 document.addEventListener("keydown", event => {
   if (event.key === "Escape" && skipVideo) {

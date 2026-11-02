@@ -21,14 +21,19 @@
       <button data-size="50" aria-pressed="false">50</button>
     </div>
     <button id="start" class="face-button"><img src="assets/images/sapik.webp" alt="">Začít</button>
+    <p id="rotate-hint">Na telefonu se kvíz hraje nejlépe na šířku.</p>
   </section>
 
   <section id="video-screen" hidden>
     <video id="video" playsinline></video>
+    <button id="skip">Přeskočit</button>
   </section>
 
   <section id="question-screen" class="screen" hidden>
-    <p id="progress"></p>
+    <div id="question-top">
+      <button id="home">Zpět na začátek</button>
+      <p id="progress"></p>
+    </div>
     <img id="recipe-picture" alt="Obrázek receptu">
     <div id="answers">
       <div id="choices"></div>
@@ -47,8 +52,6 @@
       <button id="back" class="face-button"><img src="assets/images/babica.webp" alt="">Zpět na začátek</button>
     </div>
   </section>
-
-  <button id="home" hidden>Zpět na začátek</button>
 </body>
 
 </html>

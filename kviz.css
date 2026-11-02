@@ -36,7 +36,7 @@ h1 { margin-top: 6vh; }
 }
 
 /* The progress text has its own row, so that the names are centered against the picture only. */
-#progress { grid-column: 1; grid-row: 1; }
+#question-top { grid-column: 1; grid-row: 1; }
 #recipe-picture { grid-column: 1; grid-row: 2; }
 #answers { grid-column: 2; grid-row: 2; align-self: center; position: relative; }
 
@@ -71,7 +71,10 @@ button {
   cursor: pointer;
 }
 
-button:hover:not(:disabled) { background: #fbe9e7; }
+/* Only for a mouse. On a touch screen, the hover color stays on a button after a tap. */
+@media (hover: hover) {
+  button:hover:not(:disabled) { background: #fbe9e7; }
+}
 button:disabled { cursor: default; }
 button.correct { background: #2e7d32; border-color: #2e7d32; color: #fff; }
 button.wrong { background: #c62828; border-color: #c62828; color: #fff; }
@@ -122,7 +125,7 @@ button.used { background: transparent; border-color: #e3d9cf; color: #b5aaa0; }
   border-radius: 6px;
 }
 
-/* In the top left corner of the question screen. */
+/* In the top left corner of the question screen, also when the page scrolls. */
 #home {
   position: fixed;
   top: 12px;
@@ -140,3 +143,126 @@ button.used { background: transparent; border-color: #e3d9cf; color: #b5aaa0; }
 }
 
 #video { width: 100%; height: 100%; object-fit: contain; }
+
+#rotate-hint { display: none; margin: 20px 0 0; color: #6d6259; }
+
+/* Only on a touch screen. With a keyboard, the Escape key skips the clip. */
+#skip {
+  display: none;
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding: 10px 18px;
+  border-color: #fff;
+  background: rgb(0 0 0 / 50%);
+  color: #fff;
+}
+
+@media (pointer: coarse) {
+  #skip { display: block; }
+}
+
+/* Phones. A phone in landscape has the best layout, but a phone in portrait also works. */
+@media (orientation: portrait) and (max-width: 700px), (orientation: landscape) and (max-height: 500px) {
+  /* The Zpět button is next to the recipe count, so that the two do not overlap. */
+  #question-top { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 8px; }
+  #home { position: static; padding: 4px 10px; font-size: 0.85rem; }
+  #progress { margin: 0; }
+
+  #choices { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  #choices button { font-size: 0.85rem; }
+
+  /* At the bottom of the screen, so that the player does not have to scroll to it. */
+  #next { position: fixed; top: auto; bottom: 16px; z-index: 1; margin: 0; box-shadow: 0 2px 12px rgb(0 0 0 / 25%); }
+
+  .face-button { gap: 12px; padding: 8px 24px 8px 8px; font-size: 1.5rem; }
+  .face-button img { height: 88px; }
+
+  #part-size { flex-wrap: wrap; font-size: 1.1rem; }
+  #part-size button { min-width: 56px; font-size: 1.1rem; }
+
+  #score { font-size: 1.6rem; }
+  .score-buttons { gap: 12px; }
+}
+
+@media (orientation: portrait) and (max-width: 700px) {
+  /* Room at the bottom for the Další button. */
+  #question-screen,
+  #question-screen.many-choices { display: block; padding: 12px 12px 88px; }
+
+  /* The picture is above the names. It stays at the top while the player scrolls through the names. */
+  #recipe-picture {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    height: 38vh;
+    margin-bottom: 12px;
+    background: #fdf8f2;
+  }
+
+  /* The buttons are smaller here, so the videos can be taller. */
+  #start-screen .decoration { max-height: min(55vh, calc(94vh - 380px)); }
+  #score-screen .decoration { max-height: min(55vh, calc(94vh - 400px)); }
+
+  #rotate-hint { display: block; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  /* The screen is not high, so the page does not scroll. Only the names scroll, and the picture stays in view. */
+  #question-screen,
+  #question-screen.many-choices {
+    grid-template-columns: min(calc(100dvh - 60px), 45%) 1fr;
+    grid-template-rows: auto 1fr;
+    column-gap: 16px;
+    max-width: none;
+    height: 100dvh;
+    box-sizing: border-box;
+    padding: 8px 12px;
+  }
+
+  #recipe-picture { height: 100%; min-height: 0; }
+
+  #answers,
+  #question-screen.many-choices #answers {
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    overflow-y: auto;
+    /* Room for the Další button below the last names. */
+    padding-bottom: 72px;
+  }
+
+  #question-top { font-size: 0.9rem; }
+  #next { right: 16px; left: auto; transform: none; }
+
+  /* The video is on the left. The title, the text and the buttons are on the right. */
+  #start-screen,
+  #score-screen {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr repeat(4, auto) 1fr;
+    align-items: center;
+    justify-items: center;
+    column-gap: 24px;
+    max-width: none;
+    height: 100dvh;
+    box-sizing: border-box;
+    padding: 16px;
+  }
+
+  #start-screen .decoration,
+  #score-screen .decoration {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    max-height: calc(100dvh - 32px);
+    margin: 0;
+  }
+
+  .screen h1 { grid-column: 2; grid-row: 2; margin: 0 0 12px; font-size: 1.6rem; }
+  #part-size, #score { grid-column: 2; grid-row: 3; margin-bottom: 12px; }
+  #start, #total { grid-column: 2; grid-row: 4; }
+  #total { margin: 0 0 12px; }
+  .score-buttons { grid-column: 2; grid-row: 5; flex-direction: column; align-items: center; }
+
+  .face-button img { height: 64px; }
+  .face-button { font-size: 1.3rem; }
+}
