@@ -283,6 +283,8 @@ let game
 let partSize = 25
 // Plays the sounds after a correct answer.
 const sound = new Audio()
+// Plays the clips. While the player answers, it loads the next clip, so that the clip starts without a black screen.
+const video = document.querySelector("#video")
 // Set while a clip plays. Calling it ends the clip at once.
 let skipVideo = null
 
@@ -304,6 +306,7 @@ function show(screenId) {
 function goToStart() {
   game = null
   sound.pause()
+  loadVideo(INTRO_VIDEO)
   show("start-screen")
 }
 
@@ -344,17 +347,30 @@ function startPart() {
   prepareRecipe()
 }
 
+// Gives the clip before the recipe at index (not the first recipe), or null when there are no clips.
+function clipBefore(index) {
+  return game.videos.length > 0 ? game.videos[(index - 1) % game.videos.length] : null
+}
+
 // Plays the clip before the recipe at game.index.
 function playClip() {
-  if (game.videos.length > 0) {
-    playVideo(game.videos[(game.index - 1) % game.videos.length], showQuestion)
+  const path = clipBefore(game.index)
+  if (path) {
+    playVideo(path, showQuestion)
   } else {
     showQuestion()
   }
 }
 
+// Starts to load the clip into the video element. It does nothing when the clip is already there.
+function loadVideo(path) {
+  const src = `assets/video/${path}`
+  if (video.getAttribute("src") !== src) {
+    video.src = src
+  }
+}
+
 function playVideo(path, onDone) {
-  const video = document.querySelector("#video")
   let finished = false
   // A missing or broken video must not stop the game, so it is skipped.
   const done = (failed) => {
@@ -373,7 +389,9 @@ function playVideo(path, onDone) {
   skipVideo = () => done(false)
   video.onended = () => done(false)
   video.onerror = skip
-  video.src = `assets/video/${path}`
+  loadVideo(path)
+  // The same clip can play again, or the player can skip it, so it must start from the beginning.
+  video.currentTime = 0
   show("video-screen")
   video.play().catch(skip)
 }
@@ -409,6 +427,11 @@ function prepareRecipe() {
 
 function showQuestion() {
   show("question-screen")
+  const next = game.index + 1
+  const path = next >= game.recipes.length ? OUTRO_VIDEO : clipBefore(next)
+  if (path) {
+    loadVideo(path)
+  }
 }
 
 function answer(name) {
@@ -497,6 +520,7 @@ function continueGame() {
 for (const button of document.querySelectorAll("#part-size button")) {
   button.onclick = () => choosePartSize(Number(button.dataset.size))
 }
+loadVideo(INTRO_VIDEO)
 document.querySelector("#start").onclick = startGame
 document.querySelector("#continue").onclick = continueGame
 document.querySelector("#back").onclick = goToStart
