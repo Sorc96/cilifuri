@@ -1,4 +1,5 @@
 // Pictures are in assets/images/
+// Recipes from the newer episodes, which show a picture of the meal at the end.
 const RECIPES = [
   {
     name: "Bramborovo zeleninový koláč",
@@ -202,6 +203,211 @@ const RECIPES = [
   }
 ]
 
+// Recipes from the older episodes, in the same format as RECIPES. Their pictures are in assets/images/old_recipes/
+// The start screen shows the choice of episodes only when this list is not empty.
+const OLD_RECIPES = [
+  {
+    name: "Bílá treska v těstíčku s hranolkami a česnekovou majonézou",
+    picture: "old_recipes/bila_treska_v_testicku_s_hranolkami_a_cesnekovou_majonezou.webp"
+  },
+  {
+    name: "Cibulový koláč",
+    picture: "old_recipes/cibulovy_kolac.webp"
+  },
+  {
+    name: "Citronové kuře s arašídovou omáčkou a kokosem",
+    picture: "old_recipes/citronove_kure_s_arasidovou_omackou_a_kokosem.webp"
+  },
+  {
+    name: "Gyros z kuřete",
+    picture: "old_recipes/gyros_z_kurete.webp"
+  },
+  {
+    name: "Houbové ragú s tyrolským knedlíkem",
+    picture: "old_recipes/houbove_ragu_s_tyrolskym_knedlikem.webp"
+  },
+  {
+    name: "Hovězí kližka se zeleninou a zázvorem",
+    picture: "old_recipes/hovezi_klizka_se_zeleninou_a_zazvorem.webp"
+  },
+  {
+    name: "Hovězí oháňka s pažitkovou omáčkou",
+    picture: "old_recipes/hovezi_ohanka_s_pazitkovou_omackou.webp"
+  },
+  {
+    name: "Hrachový falafel s jogurtem",
+    picture: "old_recipes/hrachovy_falafel_s_jogurtem.webp"
+  },
+  {
+    name: "Hruška s drobenkou",
+    picture: "old_recipes/hruska_s_drobenkou.webp"
+  },
+  {
+    name: "Husí játra po židovsku",
+    picture: "old_recipes/husi_jatra_po_zidovsku.webp"
+  },
+  {
+    name: "Jarní kuře na šalotce a tymiánu",
+    picture: "old_recipes/jarni_kure_na_salotce_a_tymianu.webp"
+  },
+  {
+    name: "Kapří hranolky s omáčkou",
+    picture: "old_recipes/kapri_hranolky_s_omackou.webp"
+  },
+  {
+    name: "Kapucínská hruška přelitá čokoládovým krémem",
+    picture: "old_recipes/kapucinska_hruska_prelita_cokoladovym_kremem.webp"
+  },
+  {
+    name: "Karabáček s bujónovými bramborami a bylinkovým dipem",
+    picture: "old_recipes/karabacek_s_bujonovymi_bramborami_a_bylinkovym_dipem.webp"
+  },
+  {
+    name: "Královský bažant nadívaný křepelčím masem s hrozno-medovou omáčkou a bramborovým pyré",
+    picture: "old_recipes/kralovsky_bazant_nadivany_krepelcim_masem_s_hrozno_medovou_omackou_a_bramborovym_pyre.webp"
+  },
+  {
+    name: "Křupavá zelenina s česnekovým jogurtem",
+    picture: "old_recipes/krupava_zelenina_s_cesnekovym_jogurtem.webp"
+  },
+  {
+    name: "Křupavé karbanátky s mletým masem",
+    picture: "old_recipes/krupave_karbanatky_s_mletym_masem.webp"
+  },
+  {
+    name: "Krůtí játra po asijsku",
+    picture: "old_recipes/kruti_jatra_po_asijsku.webp"
+  },
+  {
+    name: "Kuřátko s citronem nadívané jarní kedlubnou",
+    picture: "old_recipes/kuratko_s_citronem_nadivane_jarni_kedlubnou.webp"
+  },
+  {
+    name: "Kuře s cibulovo-česnekovo-jogurtovou marinádou",
+    picture: "old_recipes/kure_s_cibulovo_cesnekovo_jogurtovou_marinadou.webp"
+  },
+  {
+    name: "Kuřecí špíz s jablkem a sezamem na medu",
+    picture: "old_recipes/kureci_spiz_s_jablkem_a_sezamem_na_medu.webp"
+  },
+  {
+    name: "Mango s pistáciovým jogurtem",
+    picture: "old_recipes/mango_s_pistaciovym_jogurtem.webp"
+  },
+  {
+    name: "Mladá mrkvička v karotkovo-pomerančové omáčce s kuřecím masem",
+    picture: "old_recipes/mlada_mrkvicka_v_karotkovo_pomerancove_omacce_s_kurecim_masem.webp"
+  },
+  {
+    name: "Mrkev à la bramborák s křenem",
+    picture: "old_recipes/mrkev_ala_bramborak_s_krenem.webp"
+  },
+  {
+    name: "Opečený banán v medu s kokosem",
+    picture: "old_recipes/opeceny_banan_v_medu_s_kokosem.webp"
+  },
+  {
+    name: "Papriková rajčatová pánev",
+    picture: "old_recipes/paprikova_rajcatova_panev.webp"
+  },
+  {
+    name: "Pikantní lupínky s vepřovou panenkou",
+    picture: "old_recipes/pikantni_lupinky_s_veprovou_panenkou.webp"
+  },
+  {
+    name: "Plněná pečená brambora",
+    picture: "old_recipes/plnena_pecena_brambora.webp"
+  },
+  {
+    name: "Polévka z velkých fazolí",
+    picture: "old_recipes/polevka_z_velkych_fazoli.webp"
+  },
+  {
+    name: "Polníčkový salát s parmskou šunkou, bryndzou a zkaramelizovaná dýně",
+    picture: "old_recipes/polnickovy_salat_s_parmskou_sunkou_bryndzou_a_zkaramelizovana_dyne.webp"
+  },
+  {
+    name: "Pomazánka z olomouckých tvarůžků na topince",
+    picture: "old_recipes/pomazanka_z_olomouckych_tvaruzku_na_topince.webp"
+  },
+  {
+    name: "Ragú z červené řepy s hovězím masem",
+    picture: "old_recipes/ragu_z_cervene_repy_s_hovezim_masem.webp"
+  },
+  {
+    name: "Rajčatový salát s cibulí, majonézou a smaženým kuřetem v petrželce a sýru",
+    picture: "old_recipes/rajcatovy_salat_s_cibuli_majonezou_a_smazenym_kuretem_v_petrzelce_a_syru.webp"
+  },
+  {
+    name: "Roláda na zázvoru",
+    picture: "old_recipes/rolada_na_zazvoru.webp"
+  },
+  {
+    name: "Rýžový salát",
+    picture: "old_recipes/ryzovy_salat.webp"
+  },
+  {
+    name: "Salát ze slzovky",
+    picture: "old_recipes/salat_ze_slzovky.webp"
+  },
+  {
+    name: "Selský vepřový kotlet dle Mikyho Klímy",
+    picture: "old_recipes/selsky_veprovy_kotlet_dle_mikyho_klimy.webp"
+  },
+  {
+    name: "Švestkový nákyp",
+    picture: "old_recipes/svestkovy_nakyp.webp"
+  },
+  {
+    name: "Teplé škvarky s cibulí po uhersku",
+    picture: "old_recipes/teple_skvarky_s_cibuli_po_uhersku.webp"
+  },
+  {
+    name: "Topinka k dobrému pivu",
+    picture: "old_recipes/topinka_k_dobremu_pivu.webp"
+  },
+  {
+    name: "Vaječné karbanátky",
+    picture: "old_recipes/vajecne_karbanatky.webp"
+  },
+  {
+    name: "Vepřová krkovička z jednoho hrnce",
+    picture: "old_recipes/veprova_krkovicka_z_jednoho_hrnce.webp"
+  },
+  {
+    name: "Vinná čočka s uzeným kachním prsíčkem",
+    picture: "old_recipes/vinna_cocka_s_uzenym_kachnim_prsickem.webp"
+  },
+  {
+    name: "Žabí stehýnka na česneku a šalotce",
+    picture: "old_recipes/zabi_stehynka_na_cesneku_a_salotce.webp"
+  },
+  {
+    name: "Zapečená dýně s masem, rýží a sýrem",
+    picture: "old_recipes/zapecena_dyne_s_masem_ryzi_a_syrem.webp"
+  },
+  {
+    name: "Zapečená kedlubna se sýrem a šunkou",
+    picture: "old_recipes/zapecena_kedlubna_se_syrem_a_sunkou.webp"
+  },
+  {
+    name: "Zapečená knedlíková pánev s kapustičkami",
+    picture: "old_recipes/zapecena_knedlikova_panev_s_kapustickami.webp"
+  },
+  {
+    name: "Zapečené špenátové nudle",
+    picture: "old_recipes/zapecene_spenatove_nudle.webp"
+  },
+  {
+    name: "Zastřené vejce na vinném rizotu",
+    picture: "old_recipes/zastrene_vejce_na_vinnem_rizotu.webp"
+  },
+  {
+    name: "Zelené lusky v rajčatové omáčce",
+    picture: "old_recipes/zelene_lusky_v_rajcatove_omacce.webp"
+  }
+]
+
 // Videos are in assets/video/
 // INTRO_VIDEO plays before the first recipe, OUTRO_VIDEO after the last one.
 // VIDEOS play shuffled between recipes. When there are fewer videos than gaps, they repeat.
@@ -279,7 +485,9 @@ const SOUNDS = [
 ]
 
 let game
-// Number of recipes in one part. The player chooses it on the start screen.
+// The player chooses these two on the start screen.
+let recipeList = RECIPES
+// Number of recipes in one part.
 let partSize = 25
 // Plays the sounds after a correct answer.
 const sound = new Audio()
@@ -316,10 +524,10 @@ function leaveGame() {
   }
 }
 
-function choosePartSize(size) {
-  partSize = size
-  for (const button of document.querySelectorAll("#part-size button")) {
-    button.setAttribute("aria-pressed", String(Number(button.dataset.size) === size))
+// Marks the button as the chosen one in its group on the start screen.
+function press(button) {
+  for (const other of button.parentElement.querySelectorAll("button")) {
+    other.setAttribute("aria-pressed", String(other === button))
   }
 }
 
@@ -327,7 +535,7 @@ function choosePartSize(size) {
 // so that no recipe shows two times in one game.
 function startGame() {
   game = {
-    recipes: shuffle(RECIPES),
+    recipes: shuffle(recipeList),
     videos: shuffle(VIDEOS),
     sounds: [],
     index: 0,
@@ -343,7 +551,7 @@ function startPart() {
   game.partStart = game.index
   game.partEnd = Math.min(game.index + partSize, game.recipes.length)
   game.partCorrect = 0
-  document.querySelector("#question-screen").classList.toggle("many-choices", partSize > 25)
+  document.querySelector("#question-screen").classList.toggle("many-choices", game.partEnd - game.partStart > 25)
   prepareRecipe()
 }
 
@@ -517,8 +725,18 @@ function continueGame() {
   playClip()
 }
 
+for (const button of document.querySelectorAll("#episodes button")) {
+  button.onclick = () => {
+    recipeList = button.dataset.episodes === "old" ? OLD_RECIPES : RECIPES
+    press(button)
+  }
+}
+document.querySelector("#episodes").hidden = OLD_RECIPES.length === 0
 for (const button of document.querySelectorAll("#part-size button")) {
-  button.onclick = () => choosePartSize(Number(button.dataset.size))
+  button.onclick = () => {
+    partSize = Number(button.dataset.size)
+    press(button)
+  }
 }
 loadVideo(INTRO_VIDEO)
 document.querySelector("#start").onclick = startGame

@@ -14,14 +14,18 @@
     <h1>Čilifuri kvíz</h1>
     <video class="decoration" src="assets/video/horici_panev.mp4" autoplay muted loop playsinline
       aria-hidden="true"></video>
-    <div id="part-size" role="group" aria-label="Počet receptů">
+    <div id="episodes" class="choice" role="group" aria-label="Díly">
+      Recepty:
+      <button data-episodes="new" aria-pressed="true">Novější</button>
+      <button data-episodes="old" aria-pressed="false">Starší</button>
+    </div>
+    <div id="part-size" class="choice" role="group" aria-label="Počet receptů">
       Počet receptů:
       <button data-size="10" aria-pressed="false">10</button>
       <button data-size="25" aria-pressed="true">25</button>
       <button data-size="50" aria-pressed="false">50</button>
     </div>
     <button id="start" class="face-button"><img src="assets/images/sapik.webp" alt="">Začít</button>
-    <p id="rotate-hint">Na telefonu se kvíz hraje nejlépe na šířku.</p>
   </section>
 
   <section id="video-screen" hidden>
