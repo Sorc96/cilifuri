@@ -251,7 +251,7 @@ const VIDEOS = [
   "spenat.mp4",
   "stribro.mp4",
   "strizlivej.mp4",
-  "tupej.mp4",
+  "leknete_se.mp4",
   "vypijem.mp4",
   "vyraboval.mp4",
   "vytahuji.mp4",
@@ -507,7 +507,7 @@ function showScore() {
   const continueButton = document.querySelector("#continue")
   continueButton.hidden = left === 0
   show("score-screen")
-  ;(left > 0 ? continueButton : document.querySelector("#back")).focus()
+    ; (left > 0 ? continueButton : document.querySelector("#back")).focus()
 }
 
 function continueGame() {
